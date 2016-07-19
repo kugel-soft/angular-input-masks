@@ -1,0 +1,24 @@
+{
+  "name": "angular-input-masks-kugel",
+  "description": "Personalized input masks for AngularJS",
+  "main": "./releases/angular-input-masks-standalone.js",
+  "license": "MIT",
+  "keywords": [
+    "input",
+    "mask",
+    "angularjs"
+  ],
+  "dependencies": {
+    "angular": "^1.3.16"
+  },
+  "homepage": "https://github.com/kugel-soft/angular-input-masks-kugel",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src",
+    "demo",
+    "config",
+    "coverage"
+  ]
+}

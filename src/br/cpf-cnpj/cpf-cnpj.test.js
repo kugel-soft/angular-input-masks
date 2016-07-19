@@ -22,6 +22,15 @@ describe('ui-br-cpfcnpj-mask', function() {
 		expect(maskedModel.$formatters.length).toBe(model.$formatters.length + 1);
 	});
 
+  it('should convert number inputs to correct format', function() {
+    var input = TestUtil.compile('<input ng-model="model" ui-br-cpf-mask>', {
+			model: 35244457640
+		});
+
+		var model = input.controller('ngModel');
+		expect(model.$viewValue).toBe('352.444.576-40');
+  });
+
 	it('should format initial model values', function() {
 		var input = TestUtil.compile('<input ng-model="model" ui-br-cpfcnpj-mask>', {
 			model: '35244457640'

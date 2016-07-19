@@ -22,6 +22,15 @@ describe('ui-br-cnpj-mask', function() {
 		expect(maskedModel.$formatters.length).toBe(model.$formatters.length + 1);
 	});
 
+  it('should convert number inputs to correct format', function() {
+    var input = TestUtil.compile('<input ng-model="model" ui-br-cnpj-mask>', {
+			model: 13883875000120
+		});
+
+    var model = input.controller('ngModel');
+		expect(model.$viewValue).toBe('13.883.875/0001-20');
+  });
+
 	it('should format initial model values', function() {
 		var input = TestUtil.compile('<input ng-model="model" ui-br-cnpj-mask>', {
 			model: '13883875000120'

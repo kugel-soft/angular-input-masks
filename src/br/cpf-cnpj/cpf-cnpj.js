@@ -9,7 +9,7 @@ var cpfPattern = new StringMask('000.000.000-00');
 
 module.exports = maskFactory({
 	clearValue: function(rawValue) {
-		return rawValue.replace(/[^\d]/g, '').slice(0, 14);
+		return rawValue.toString().replace(/[^\d]/g, '').slice(0, 14);
 	},
 	format: function(cleanValue) {
 		var formatedValue;
@@ -24,10 +24,10 @@ module.exports = maskFactory({
 	},
 	validations: {
 		cpf: function(value) {
-			return value.length > 11 || BrV.cpf.validate(value);
+			return value.toString().length > 11 || BrV.cpf.validate(value.toString());
 		},
 		cnpj: function(value) {
-			return value.length <= 11 || BrV.cnpj.validate(value);
+			return value.toString().length <= 11 || BrV.cnpj.validate(value.toString());
 		}
 	}
 });

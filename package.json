@@ -1,10 +1,10 @@
 {
-  "name": "angular-input-masks",
-  "version": "2.4.0",
+  "name": "angular-input-masks-kugel",
+  "version": "2.4.1",
   "description": "Personalized input masks for AngularJS",
   "repository": {
     "type": "git",
-    "url": "https://github.com/assisrafael/angular-input-masks.git"
+    "url": "https://github.com/kugel-soft/angular-input-masks-kugel.git"
   },
   "homepage": "http://github.com/assisrafael/angular-input-masks",
   "scripts": {

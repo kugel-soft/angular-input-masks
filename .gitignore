@@ -3,7 +3,6 @@ bower-angular-input-masks
 /node_modules
 coverage
 /*.log
-releases
 .tern-project
 .DS_Store
 *.swp
