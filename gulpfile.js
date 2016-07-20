@@ -92,6 +92,9 @@ gulp.task('build', ['build-dependencies'], function() {
 		.require('validators', {
 			expose: 'validators'
 		})
+    .require('converters', {
+			expose: 'converters'
+		})
 		.bundle()
 		.pipe(source(entry.outputFileName || entry.fileName))
 		.pipe(buffer())
