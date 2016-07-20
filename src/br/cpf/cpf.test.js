@@ -24,11 +24,11 @@ describe('ui-br-cpf-mask', function() {
 
   it('should convert number inputs to correct format', function() {
     var input = TestUtil.compile('<input ng-model="model" ui-br-cpf-mask>', {
-			model: 35244457640
+			model: 910192227
 		});
 
 		var model = input.controller('ngModel');
-		expect(model.$viewValue).toBe('352.444.576-40');
+		expect(model.$viewValue).toBe('009.101.922-27');
   });
 
 	it('should format initial model values', function() {
@@ -47,6 +47,7 @@ describe('ui-br-cpf-mask', function() {
 		var tests = [
 			{modelValue: '', viewValue: ''},
 			{modelValue: '0', viewValue: '0'},
+      {modelValue: 0, viewValue: ''},
 			{modelValue: null, viewValue: null},
 			{}, //tests undefined values
 		];

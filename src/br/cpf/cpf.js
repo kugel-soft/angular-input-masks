@@ -8,7 +8,18 @@ var cpfPattern = new StringMask('000.000.000-00');
 
 module.exports = maskFactory({
 	clearValue: function(rawValue) {
-		return rawValue.toString().replace(/[^\d]/g, '').slice(0, 11);
+    if( !rawValue.replace ){
+      if( rawValue === 0 ){
+        rawValue = '';
+      }
+      else{
+        rawValue = rawValue.toString();
+        while( rawValue.length < 11 ){
+          rawValue = '0' + rawValue;
+        }
+      }
+    }
+		return rawValue.replace(/[^\d]/g, '').slice(0, 11);
 	},
 	format: function(cleanValue) {
 		return (cpfPattern.apply(cleanValue) || '').trim().replace(/[^0-9]$/, '');
