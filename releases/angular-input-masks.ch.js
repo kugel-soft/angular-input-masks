@@ -1,7 +1,7 @@
 /**
  * angular-input-masks-kugel
  * Personalized input masks for AngularJS
- * @version v2.4.1
+ * @version v2.4.2
  * @link http://github.com/assisrafael/angular-input-masks
  * @license MIT
  */
@@ -798,7 +798,27 @@ m.factory('PreFormatters', [function() {
 	};
 }]);
 
-},{"string-mask":undefined}],"mask-factory":[function(require,module,exports){
+},{"string-mask":undefined}],"converters":[function(require,module,exports){
+'use strict';
+
+module.exports = {
+	convertNumberToCpfCnpj: function(rawValue) {
+    if( !rawValue.replace ){
+      if( rawValue === 0 ){
+        rawValue = '';
+      }
+      else{
+        rawValue = rawValue.toString();
+        while( rawValue.length < 11 || rawValue.length > 11 && rawValue.length < 14 ){
+          rawValue = '0' + rawValue;
+        }
+      }
+    }
+    return rawValue;
+	}
+};
+
+},{}],"mask-factory":[function(require,module,exports){
 'use strict';
 
 module.exports = function maskFactory(maskDefinition) {

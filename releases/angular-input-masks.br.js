@@ -1,7 +1,7 @@
 /**
  * angular-input-masks-kugel
  * Personalized input masks for AngularJS
- * @version v2.4.1
+ * @version v2.4.2
  * @link http://github.com/assisrafael/angular-input-masks
  * @license MIT
  */
@@ -96,7 +96,7 @@ module.exports = maskFactory({
 	},
 	validations: {
 		cep: function(value) {
-			return value.length === 8;
+			return value.toString().length === 8;
 		}
 	}
 });
@@ -107,58 +107,38 @@ module.exports = maskFactory({
 var StringMask = require('string-mask');
 var BrV = require('br-validations');
 var maskFactory = require('mask-factory');
+var conv = require('converters');
 
 var cnpjPattern = new StringMask('00.000.000\/0000-00');
 
 module.exports = maskFactory({
 	clearValue: function(rawValue) {
-    if( !rawValue.replace ){
-      if( rawValue === 0 ){
-        rawValue = '';
-      }
-      else{
-        rawValue = rawValue.toString();
-        while( rawValue.length < 14 ){
-          rawValue = '0' + rawValue;
-        }
-      }
-    }
-		return rawValue.replace(/[^\d]/g, '').slice(0, 14);
+		return conv.convertNumberToCpfCnpj(rawValue).replace(/[^\d]/g, '').slice(0, 14);
 	},
 	format: function(cleanValue) {
 		return (cnpjPattern.apply(cleanValue) || '').trim().replace(/[^0-9]$/, '');
 	},
 	validations: {
 		cnpj: function(value) {
-			return BrV.cnpj.validate(value.toString());
+			return BrV.cnpj.validate(conv.convertNumberToCpfCnpj(value));
 		}
 	}
 });
 
-},{"br-validations":undefined,"mask-factory":"mask-factory","string-mask":undefined}],7:[function(require,module,exports){
+},{"br-validations":undefined,"converters":"converters","mask-factory":"mask-factory","string-mask":undefined}],7:[function(require,module,exports){
 'use strict';
 
 var StringMask = require('string-mask');
 var BrV = require('br-validations');
 var maskFactory = require('mask-factory');
+var conv = require('converters');
 
 var cnpjPattern = new StringMask('00.000.000\/0000-00');
 var cpfPattern = new StringMask('000.000.000-00');
 
 module.exports = maskFactory({
 	clearValue: function(rawValue) {
-    if( !rawValue.replace ){
-      if( rawValue === 0 ){
-        rawValue = '';
-      }
-      else{
-        rawValue = rawValue.toString();
-        while( rawValue.length < 11 || rawValue.length > 11 && rawValue.length < 14 ){
-          rawValue = '0' + rawValue;
-        }
-      }
-    }
-		return rawValue.replace(/[^\d]/g, '').slice(0, 14);
+		return conv.convertNumberToCpfCnpj(rawValue).replace(/[^\d]/g, '').slice(0, 14);
 	},
 	format: function(cleanValue) {
 		var formatedValue;
@@ -173,49 +153,39 @@ module.exports = maskFactory({
 	},
 	validations: {
 		cpf: function(value) {
-			return value.toString().length > 11 || BrV.cpf.validate(value.toString());
+			return value.toString().length > 11 || BrV.cpf.validate(conv.convertNumberToCpfCnpj(value));
 		},
 		cnpj: function(value) {
-			return value.toString().length <= 11 || BrV.cnpj.validate(value.toString());
+			return value.toString().length <= 11 || BrV.cnpj.validate(conv.convertNumberToCpfCnpj(value));
 		}
 	}
 });
 
-},{"br-validations":undefined,"mask-factory":"mask-factory","string-mask":undefined}],8:[function(require,module,exports){
+},{"br-validations":undefined,"converters":"converters","mask-factory":"mask-factory","string-mask":undefined}],8:[function(require,module,exports){
 'use strict';
 
 var StringMask = require('string-mask');
 var BrV = require('br-validations');
 var maskFactory = require('mask-factory');
+var conv = require('converters');
 
 var cpfPattern = new StringMask('000.000.000-00');
 
 module.exports = maskFactory({
 	clearValue: function(rawValue) {
-    if( !rawValue.replace ){
-      if( rawValue === 0 ){
-        rawValue = '';
-      }
-      else{
-        rawValue = rawValue.toString();
-        while( rawValue.length < 11 ){
-          rawValue = '0' + rawValue;
-        }
-      }
-    }
-		return rawValue.replace(/[^\d]/g, '').slice(0, 11);
+		return conv.convertNumberToCpfCnpj(rawValue).replace(/[^\d]/g, '').slice(0, 11);
 	},
 	format: function(cleanValue) {
 		return (cpfPattern.apply(cleanValue) || '').trim().replace(/[^0-9]$/, '');
 	},
 	validations: {
 		cpf: function(value) {
-			return BrV.cpf.validate(value.toString());
+			return BrV.cpf.validate(conv.convertNumberToCpfCnpj(value));
 		}
 	}
 });
 
-},{"br-validations":undefined,"mask-factory":"mask-factory","string-mask":undefined}],9:[function(require,module,exports){
+},{"br-validations":undefined,"converters":"converters","mask-factory":"mask-factory","string-mask":undefined}],9:[function(require,module,exports){
 'use strict';
 
 var StringMask = require('string-mask');
@@ -1168,7 +1138,27 @@ m.factory('PreFormatters', [function() {
 	};
 }]);
 
-},{"string-mask":undefined}],"mask-factory":[function(require,module,exports){
+},{"string-mask":undefined}],"converters":[function(require,module,exports){
+'use strict';
+
+module.exports = {
+	convertNumberToCpfCnpj: function(rawValue) {
+    if( !rawValue.replace ){
+      if( rawValue === 0 ){
+        rawValue = '';
+      }
+      else{
+        rawValue = rawValue.toString();
+        while( rawValue.length < 11 || rawValue.length > 11 && rawValue.length < 14 ){
+          rawValue = '0' + rawValue;
+        }
+      }
+    }
+    return rawValue;
+	}
+};
+
+},{}],"mask-factory":[function(require,module,exports){
 'use strict';
 
 module.exports = function maskFactory(maskDefinition) {
