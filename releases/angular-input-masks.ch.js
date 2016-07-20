@@ -1,7 +1,7 @@
 /**
  * angular-input-masks-kugel
  * Personalized input masks for AngularJS
- * @version v2.4.2
+ * @version v2.4.3
  * @link http://github.com/assisrafael/angular-input-masks
  * @license MIT
  */

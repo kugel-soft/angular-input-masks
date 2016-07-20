@@ -1,7 +1,7 @@
 /**
  * angular-input-masks-kugel
  * Personalized input masks for AngularJS
- * @version v2.4.2
+ * @version v2.4.3
  * @link http://github.com/assisrafael/angular-input-masks
  * @license MIT
  */
@@ -5184,6 +5184,9 @@ var cepMask = new StringMask('00000-000');
 
 module.exports = maskFactory({
 	clearValue: function(rawValue) {
+    if( rawValue === 0 ){
+      rawValue = '';
+    }
 		return rawValue.toString().replace(/[^0-9]/g, '').slice(0, 8);
 	},
 	format: function(cleanValue) {
@@ -5191,7 +5194,7 @@ module.exports = maskFactory({
 	},
 	validations: {
 		cep: function(value) {
-			return value.toString().length === 8;
+      return value === 0 || value.toString().length === 8;
 		}
 	}
 });
@@ -5215,7 +5218,7 @@ module.exports = maskFactory({
 	},
 	validations: {
 		cnpj: function(value) {
-			return BrV.cnpj.validate(conv.convertNumberToCpfCnpj(value));
+			return value === 0 || BrV.cnpj.validate(conv.convertNumberToCpfCnpj(value));
 		}
 	}
 });
@@ -5248,10 +5251,10 @@ module.exports = maskFactory({
 	},
 	validations: {
 		cpf: function(value) {
-			return value.toString().length > 11 || BrV.cpf.validate(conv.convertNumberToCpfCnpj(value));
+			return value === 0 || value.toString().length > 11 || BrV.cpf.validate(conv.convertNumberToCpfCnpj(value));
 		},
 		cnpj: function(value) {
-			return value.toString().length <= 11 || BrV.cnpj.validate(conv.convertNumberToCpfCnpj(value));
+			return value === 0 || value.toString().length <= 11 || BrV.cnpj.validate(conv.convertNumberToCpfCnpj(value));
 		}
 	}
 });
@@ -5275,7 +5278,7 @@ module.exports = maskFactory({
 	},
 	validations: {
 		cpf: function(value) {
-			return BrV.cpf.validate(conv.convertNumberToCpfCnpj(value));
+			return value === 0 || BrV.cpf.validate(conv.convertNumberToCpfCnpj(value));
 		}
 	}
 });
