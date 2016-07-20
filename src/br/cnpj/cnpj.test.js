@@ -59,6 +59,15 @@ describe('ui-br-cnpj-mask', function() {
 		});
 	}));
 
+  it('should not validate number 0', function() {
+    var input = TestUtil.compile('<input ng-model="model" ui-br-cnpj-mask>', {
+			model: 0
+		});
+
+    var model = input.controller('ngModel');
+		expect(model.$valid).toBe(true);
+  });
+
 	it('should ignore non digits', function() {
 		var input = TestUtil.compile('<input ng-model="model" ng-model-options="{allowInvalid:true}" ui-br-cnpj-mask>');
 		var model = input.controller('ngModel');

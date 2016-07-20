@@ -16,7 +16,7 @@ module.exports = maskFactory({
 	},
 	validations: {
 		cpf: function(value) {
-			return BrV.cpf.validate(conv.convertNumberToCpfCnpj(value));
+			return value === 0 || BrV.cpf.validate(conv.convertNumberToCpfCnpj(value));
 		}
 	}
 });

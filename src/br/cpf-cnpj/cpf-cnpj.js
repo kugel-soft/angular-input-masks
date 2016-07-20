@@ -25,10 +25,10 @@ module.exports = maskFactory({
 	},
 	validations: {
 		cpf: function(value) {
-			return value.toString().length > 11 || BrV.cpf.validate(conv.convertNumberToCpfCnpj(value));
+			return value === 0 || value.toString().length > 11 || BrV.cpf.validate(conv.convertNumberToCpfCnpj(value));
 		},
 		cnpj: function(value) {
-			return value.toString().length <= 11 || BrV.cnpj.validate(conv.convertNumberToCpfCnpj(value));
+			return value === 0 || value.toString().length <= 11 || BrV.cnpj.validate(conv.convertNumberToCpfCnpj(value));
 		}
 	}
 });
